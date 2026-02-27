@@ -10,11 +10,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @JsonIgnore
+    @Column(nullable = false)
     private String password;
-
     private String role;
 
     // Getter & Setter for id
