@@ -27,6 +27,7 @@ public class LoanController {
                             @RequestBody Loan loan) {
 
         loan.setStatus("PENDING");
+        loan.setInterestRate(null);   // important
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -42,14 +43,16 @@ public class LoanController {
         return loanRepository.findAll();
     }
 
-    // Approve Loan
+    // Approve Loan WITH Interest Rate
     @PutMapping("/approve/{loanId}")
-    public Loan approveLoan(@PathVariable Long loanId) {
+    public Loan approveLoan(@PathVariable Long loanId,
+                            @RequestParam Double interestRate) {
 
         Loan loan = loanRepository.findById(loanId)
                 .orElseThrow(() -> new RuntimeException("Loan not found"));
 
         loan.setStatus("APPROVED");
+        loan.setInterestRate(interestRate);
 
         return loanRepository.save(loan);
     }
@@ -62,6 +65,7 @@ public class LoanController {
                 .orElseThrow(() -> new RuntimeException("Loan not found"));
 
         loan.setStatus("REJECTED");
+        loan.setInterestRate(null);   // optional reset
 
         return loanRepository.save(loan);
     }

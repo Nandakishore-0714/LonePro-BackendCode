@@ -8,8 +8,8 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Double amount;
+    private Double interestRate;
     private String status;
 
     @ManyToOne
@@ -27,4 +27,10 @@ public class Loan {
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+	public Double getInterestRate() {
+		return interestRate;
+	}
+	public void setInterestRate(Double interestRate) {
+		this.interestRate = interestRate;
+	}
 }
